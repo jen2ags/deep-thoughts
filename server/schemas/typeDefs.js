@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 
 //create our typeDefs
 const typeDefs = gql
-`
+    `
 type User {
     _id: ID
     username: String
@@ -22,20 +22,28 @@ type Thought {
     reactions: [Reaction]
 }  
 
-    type Reaction {
-        _id: ID
-        reactionBody: String
-        createdAt: String
-        username: String
-    }
+type Reaction {
+    _id: ID
+    reactionBody: String
+    createdAt: String
+    username: String
+}
     
-    type Query {
+type Query {
     thoughts(username: String): [Thought]
     thought(_id: ID!): Thought
     users: [User]
-    user(username: String!): [Thought]
+    user(username: String!): User
 
-}`;
+}
 
+ 
+type Mutation {
+    login(email: String!, password: String!): User
+    assUser(username: String!, email: String!, password: String!): User
+}
+`;
+
+// ! indicates that the argument is required (lines 42 & 43) 
 // export the typeDefs
 module.exports = typeDefs;
